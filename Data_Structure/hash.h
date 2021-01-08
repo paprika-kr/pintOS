@@ -31,6 +31,12 @@ struct hash_elem
     struct list_elem list_elem;
   };
 
+struct hash_node
+{
+  struct hash_elem hash_elem;
+  int data;
+};
+
 /* Converts pointer to hash element HASH_ELEM into a pointer to
    the structure that HASH_ELEM is embedded inside.  Supply the
    name of the outer structure STRUCT and the member name MEMBER
@@ -58,6 +64,7 @@ typedef void hash_action_func (struct hash_elem *e, void *aux);
 /* Hash table. */
 struct hash 
   {
+    char name[50];
     size_t elem_cnt;            /* Number of elements in table. */
     size_t bucket_cnt;          /* Number of buckets, a power of 2. */
     struct list *buckets;       /* Array of `bucket_cnt' lists. */
@@ -73,6 +80,10 @@ struct hash_iterator
     struct list *bucket;        /* Current bucket. */
     struct hash_elem *elem;     /* Current hash element in current bucket. */
   };
+
+/* Custom function */
+bool less_func(const struct hash_elem *a, const struct hash_elem *b, void *aux);
+unsigned hash_func(const struct hash_elem *e, void *aux);
 
 /* Basic life cycle. */
 bool hash_init (struct hash *, hash_hash_func *, hash_less_func *, void *aux);

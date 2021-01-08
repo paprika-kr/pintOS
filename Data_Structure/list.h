@@ -96,6 +96,7 @@ struct list_elem
 /* List. */
 struct list 
   {
+    char name[50];
     struct list_elem head;      /* List head. */
     struct list_elem tail;      /* List tail. */
   };

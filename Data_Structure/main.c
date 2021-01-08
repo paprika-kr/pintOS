@@ -11,6 +11,11 @@
 #include "limits.h"
 
 int main(){
+
+	struct list listNode[10];
+	struct hash hashNode[10];
+	struct bitmap bitmapNode[10];
+
 	char inst[50];
 	char *str, *name, *arg;
 	int bitElemNum;
@@ -32,6 +37,8 @@ int main(){
 				name = strtok(NULL, " ");
 				
 				if(listNum < 10){
+					strcpy(listNode[listNum].name, name);
+					list_init(&listNode[listNum]);
 					listNum++;
 				}
 
@@ -46,6 +53,8 @@ int main(){
 				name = strtok(NULL, " ");
 				
 				if(hashNum < 10){
+					strcpy(hashNode[hashNum].name, name);
+					hash_init(&hashNode[hashNum],hash_func, less_func, NULL);
 					hashNum++;
 				}
 
@@ -62,6 +71,8 @@ int main(){
 				bitElemNum = atoi(arg);
 
 				if(bitmapNum < 10){
+					bitmapNode[bitmapNum] = *(bitmap_create(bitElemNum));
+					strcpy(bitmapNode[bitmapNum].name, name);
 					bitmapNum++;
 				}
 
@@ -94,6 +105,8 @@ int main(){
 			return;
 		}
 
-
+		else if(strcmp(str, "list_insert") == 0){
+			
+		}
 	}
 }

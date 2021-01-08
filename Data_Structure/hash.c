@@ -21,6 +21,21 @@ static void insert_elem (struct hash *, struct list *, struct hash_elem *);
 static void remove_elem (struct hash *, struct hash_elem *);
 static void rehash (struct hash *);
 
+bool less_func(const struct hash_elem *a, const struct hash_elem *b, void *aux)
+{
+  struct hash_node *hashNode = hash_entry(a, struct hash_node, hash_elem);
+  struct hash_node *hashNode2 = hash_entry(b, struct hash_node, hash_elem);
+
+  if((hashNode->data) < (hashNode2->data)) return true;
+  else return false;
+}
+
+unsigned hash_func(const struct hash_elem *e, void *aux)
+{
+  struct hash_node *hashNode = hash_entry(e, struct hash_node, hash_elem);
+  return hash_int(hashNode->data);
+}
+
 /* Initializes hash table H to compute hash values using HASH and
    compare hash elements using LESS, given auxiliary data AUX. */
 bool
